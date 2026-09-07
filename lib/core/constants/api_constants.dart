@@ -1,0 +1,68 @@
+/// Backend bilan bog'liq barcha manzillar shu yerda.
+///
+/// `--dart-define=API_BASE_URL=https://api.warderdo.uz` orqali build vaqtida
+/// almashtirsa bo'ladi. Default qiymat lokal development uchun.
+class ApiConstants {
+  const ApiConstants._();
+
+  /// Default — USB orqali ulangan haqiqiy qurilma uchun.
+  ///
+  /// `adb reverse tcp:8000 tcp:8000` telefondagi `localhost:8000` ni
+  /// kompyuterdagi backendga yo'naltiradi, shuning uchun Wi-Fi, LAN IP yoki
+  /// firewall sozlamalari umuman kerak emas.
+  ///
+  /// Boshqa muhitlar uchun build vaqtida almashtiriladi:
+  ///   * Android emulyator — `--dart-define=API_BASE_URL=http://10.0.2.2:8000/api/v1`
+  ///   * Wi-Fi orqali      — `--dart-define=API_BASE_URL=http://192.168.0.200:8000/api/v1`
+  ///   * Production        — `--dart-define=API_BASE_URL=https://api.warderdo.uz/api/v1`
+  static const String baseUrl = String.fromEnvironment(
+    'API_BASE_URL',
+    defaultValue: 'https://warderdo-60a1aac98088.herokuapp.com/api/v1',
+  );
+
+  // --- Auth ---
+  static const String register = '/auth/register';
+  static const String login = '/auth/login';
+  static const String token = '/auth/token';
+  static const String refresh = '/auth/refresh';
+  static const String logout = '/auth/logout';
+  static const String me = '/auth/me';
+
+  /// Access token muddati tuganда backend aynan shu matnni qaytaradi.
+  /// Boshqa 401 lardan farqlash uchun: bunда refresh qilamiz, chiqarmaymiz.
+  static const String accessExpiredDetail = 'Access token has expired';
+
+  // --- Habits ---
+  static const String habits = '/habits';
+  static String habit(String id) => '/habits/$id';
+  static String habitArchive(String id) => '/habits/$id/archive';
+  static String habitUnarchive(String id) => '/habits/$id/unarchive';
+  static String habitLogs(String id) => '/habits/$id/logs';
+  static String habitStreak(String id) => '/habits/$id/streak';
+  static const String habitsReorder = '/habits/reorder';
+
+  // --- Groups ---
+  static const String groups = '/groups';
+  static String group(String id) => '/groups/$id';
+  static const String groupsReorder = '/groups/reorder';
+
+  // --- Programs (AI planlar) ---
+  static const String programs = '/programs';
+  static const String programsGenerate = '/programs/generate';
+  static String program(String id) => '/programs/$id';
+  static String programShift(String id) => '/programs/$id/shift';
+
+  // --- Qolganlari ---
+  static const String vacations = '/vacations';
+  static String vacation(String id) => '/vacations/$id';
+  static const String statsOverview = '/stats/overview';
+  static const String achievements = '/achievements';
+  static const String templates = '/templates';
+
+  static const Duration connectTimeout = Duration(seconds: 15);
+  static const Duration receiveTimeout = Duration(seconds: 20);
+
+  /// Token muddati tugashiga shuncha vaqt qolganda uni "eskirgan" deb hisoblaymiz.
+  /// Refresh token yo'q, shuning uchun bu vaqtda foydalanuvchi login ekraniga tushadi.
+  static const Duration expiryLeeway = Duration(seconds: 30);
+}
