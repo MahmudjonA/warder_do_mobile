@@ -32,6 +32,11 @@ import '../../features/programs/data/repositories/programs_repository_impl.dart'
 import '../../features/programs/domain/repositories/programs_repository.dart';
 import '../../features/programs/domain/usecases/program_usecases.dart';
 import '../../features/programs/presentation/bloc/program_import_bloc.dart';
+import '../../features/stats/data/datasources/stats_remote_data_source.dart';
+import '../../features/stats/data/repositories/stats_repository_impl.dart';
+import '../../features/stats/domain/repositories/stats_repository.dart';
+import '../../features/stats/domain/usecases/stats_usecases.dart';
+import '../../features/stats/presentation/bloc/stats_bloc.dart';
 import '../network/dio_client.dart';
 import '../network/session_notifier.dart';
 import '../storage/token_storage.dart';
@@ -102,6 +107,30 @@ Future<void> initDependencies({TokenStorage? storageOverride}) async {
   _registerHabits();
   _registerGroups();
   _registerPrograms();
+  _registerStats();
+}
+
+void _registerStats() {
+  sl.registerLazySingleton<StatsRemoteDataSource>(
+    () => StatsRemoteDataSourceImpl(sl<Dio>()),
+  );
+  sl.registerLazySingleton<StatsRepository>(
+    () => StatsRepositoryImpl(sl<StatsRemoteDataSource>()),
+  );
+
+  sl.registerLazySingleton(() => GetStatsCalendar(sl<StatsRepository>()));
+  sl.registerLazySingleton(() => GetStatsRecords(sl<StatsRepository>()));
+  sl.registerLazySingleton(() => GetStatsWeekly(sl<StatsRepository>()));
+
+  // Ekran IndexedStack ичida tirik qoladi — bitta instansiya yetarli.
+  sl.registerFactory<StatsBloc>(
+    () => StatsBloc(
+      getCalendar: sl(),
+      getRecords: sl(),
+      getWeekly: sl(),
+      getDailyHabits: sl(),
+    ),
+  );
 }
 
 void _registerPrograms() {

@@ -56,6 +56,9 @@ class ApiConstants {
   static const String vacations = '/vacations';
   static String vacation(String id) => '/vacations/$id';
   static const String statsOverview = '/stats/overview';
+  static const String statsCalendar = '/stats/calendar';
+  static const String statsRecords = '/stats/records';
+  static const String statsWeekly = '/stats/weekly';
   static const String achievements = '/achievements';
   static const String templates = '/templates';
 

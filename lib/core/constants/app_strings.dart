@@ -109,6 +109,52 @@ class AppStrings {
   static const String statsSoonTitle = 'Статистика скоро появится';
   static const String statsSoonBody =
       'Здесь будут серии, проценты выполнения и достижения.';
+  static const String statsTitle = 'Статистика';
+  static const String statsSelectedHabits = 'Выбранные привычки';
+  static const String statsAllHabits = 'Все привычки';
+  static const String statsRecords = 'Записи';
+  static const String statsCurrentStreak = 'Текущая серия';
+  static const String statsBestStreak = 'Лучшая серия';
+  static const String statsCompleted = 'Выполнено';
+  static const String statsSuccessRate = 'Успешность';
+  static const String statsLast7 = 'Последние 7 дней';
+  static const String statsLast30 = 'Последние 30 дней';
+  static const String statsLast90 = 'Последние 90 дней';
+  static const String statsEmpty = 'Пока нет данных';
+  static const String statsEmptyBody =
+      'Отмечайте привычки — и здесь появится ваша статистика.';
+
+  /// Именительный падеж — для заголовка календаря («Сентябрь 2025»).
+  static const List<String> monthsNominative = [
+    'Январь',
+    'Февраль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентябрь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь',
+  ];
+
+  /// Сокращения месяцев — для диапазона недели («15–21 сент.»).
+  static const List<String> monthsShort = [
+    'янв.',
+    'фев.',
+    'мар.',
+    'апр.',
+    'мая',
+    'июн.',
+    'июл.',
+    'авг.',
+    'сент.',
+    'окт.',
+    'нояб.',
+    'дек.',
+  ];
 
   // --- Группы ---
   static const String groups = 'Группы';
